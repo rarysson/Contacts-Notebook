@@ -21,6 +21,11 @@ export default {
         href:
           'https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap',
       },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css',
+      },
     ],
   },
 
