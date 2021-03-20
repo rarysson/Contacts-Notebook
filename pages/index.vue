@@ -4,6 +4,16 @@
       <Logo class="logo" />
       <SearchBar class="search-bar" />
     </header>
+
+    <main>
+      <div v-if="users.length > 0" class="users-container">
+        <UserCard
+          v-for="(user, index) in users"
+          :key="`user-${index}`"
+          :user-data="user"
+        />
+      </div>
+    </main>
   </div>
 </template>
 
@@ -38,6 +48,17 @@ header {
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
+  }
+}
+
+main {
+  margin-top: 50px;
+
+  .users-container {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
   }
 }
 </style>

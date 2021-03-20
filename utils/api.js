@@ -1,6 +1,6 @@
 async function getRandomAvatar(seed) {
   const response = await fetch(
-    `https://avatars.dicebear.com/api/avataaars/${seed}.svg`
+    `https://avatars.dicebear.com/api/avataaars/${seed}.svg?eyes[]=default&eyebrow[]=default&mouth[]=default`
   )
 
   return await response.blob()
