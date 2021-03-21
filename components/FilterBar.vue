@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'SearchBar',
+  name: 'FilterBar',
 
   data() {
     return {
@@ -34,10 +34,12 @@ export default {
   methods: {
     sendSearch() {
       if (this.searchTerm) {
-        this.$emit('search', {
+        this.$emit('filter', {
           type: this.searchOption,
           value: this.searchTerm,
         })
+
+        this.searchTerm = ''
       }
     },
   },

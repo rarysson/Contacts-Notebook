@@ -2,7 +2,7 @@
   <div class="app">
     <header>
       <Logo class="logo" />
-      <SearchBar class="search-bar" @search="filterUser" />
+      <FilterBar class="search-bar" @filter="setFilterDataAndFilterUsers" />
     </header>
 
     <section v-if="hasFilters" class="filters-container">
@@ -12,7 +12,9 @@
         <p>
           <span class="filter-label">Nome de pessoa:</span> {{ filters.person }}
         </p>
-        <button @click="filters.person = ''">
+        <button
+          @click="setFilterDataAndFilterUsers({ type: 'person', value: '' })"
+        >
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </div>
@@ -21,7 +23,9 @@
           <span class="filter-label">Categoria da empresa:</span>
           {{ filters.company }}
         </p>
-        <button @click="filters.company = ''">
+        <button
+          @click="setFilterDataAndFilterUsers({ type: 'company', value: '' })"
+        >
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </div>
@@ -31,7 +35,7 @@
       <div class="users-container">
         <template v-if="!isLoading">
           <UserCard
-            v-for="(user, index) in users"
+            v-for="(user, index) in filteredUsers"
             :key="`user-${index}`"
             :user-data="user"
           />
@@ -53,6 +57,7 @@ export default {
   data() {
     return {
       users: [],
+      filteredUsers: [],
       isLoading: false,
       filters: {
         person: '',
@@ -70,12 +75,51 @@ export default {
   async beforeMount() {
     this.isLoading = true
     this.users = await getUsers()
+    this.filteredUsers = this.users
     this.isLoading = false
   },
 
   methods: {
-    filterUser({ type, value }) {
+    setFilterDataAndFilterUsers({ type, value }) {
       this.filters[type] = value
+
+      if (type === 'person') {
+        this.filterUsersByName()
+      } else {
+        this.filterUsersByCompanyCategory()
+      }
+    },
+
+    filterUsersByName() {
+      if (this.filters.person && !this.filters.company) {
+        this.filteredUsers = this.users.filter((user) =>
+          user.name.toLowerCase().includes(this.filters.person.toLowerCase())
+        )
+      } else if (this.filters.person && this.filters.company) {
+        this.filteredUsers = this.filteredUsers.filter((user) =>
+          user.name.toLowerCase().includes(this.filters.person.toLowerCase())
+        )
+      } else if (!this.filters.person && !this.filters.company) {
+        this.filteredUsers = this.users
+      } else if (!this.filters.person && this.filters.company) {
+        this.filterUsersByCompanyCategory()
+      }
+    },
+
+    filterUsersByCompanyCategory() {
+      if (this.filters.company && !this.filters.person) {
+        this.filteredUsers = this.users.filter((user) =>
+          user.company.bs.includes(this.filters.company.toLowerCase())
+        )
+      } else if (this.filters.company && this.filters.person) {
+        this.filteredUsers = this.filteredUsers.filter((user) =>
+          user.company.bs.includes(this.filters.company.toLowerCase())
+        )
+      } else if (!this.filters.company && !this.filters.person) {
+        this.filteredUsers = this.users
+      } else if (!this.filters.company && this.filters.person) {
+        this.filterUsersByName()
+      }
     },
   },
 }
