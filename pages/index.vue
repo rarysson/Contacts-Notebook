@@ -6,12 +6,17 @@
     </header>
 
     <main>
-      <div v-if="users.length > 0" class="users-container">
-        <UserCard
-          v-for="(user, index) in users"
-          :key="`user-${index}`"
-          :user-data="user"
-        />
+      <div class="users-container">
+        <template v-if="!isLoading">
+          <UserCard
+            v-for="(user, index) in users"
+            :key="`user-${index}`"
+            :user-data="user"
+          />
+        </template>
+        <template v-else>
+          <UserCardLoading v-for="index in 5" :key="`user-loading-${index}`" />
+        </template>
       </div>
     </main>
   </div>
@@ -26,11 +31,14 @@ export default {
   data() {
     return {
       users: [],
+      isLoading: false,
     }
   },
 
   async beforeMount() {
+    this.isLoading = true
     this.users = await getUsers()
+    this.isLoading = false
   },
 }
 </script>

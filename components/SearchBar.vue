@@ -64,8 +64,10 @@ export default {
   }
 }
 
+$border: 2px solid $default;
+
 form {
-  border: 2px solid $default;
+  border: $border;
   border-radius: 10px;
   display: flex;
   transition: all 250ms ease-out;
@@ -80,7 +82,7 @@ form {
   select {
     @include action-effects;
 
-    border-left: 2px solid $default;
+    border-left: $border;
     padding: 0 10px;
   }
 
