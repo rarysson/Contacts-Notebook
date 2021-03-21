@@ -32,7 +32,9 @@
       </section>
     </div>
 
-    <button>Ver mais</button>
+    <button @click="openModal = true">Ver mais</button>
+
+    <UserCardModal v-model="openModal" :user-data="userData" />
   </article>
 </template>
 
@@ -45,6 +47,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      openModal: false,
+    }
   },
 
   computed: {
@@ -127,6 +135,7 @@ article {
           border-radius: 5px;
           color: $grey;
           font-size: rem(12);
+          font-weight: bold;
           padding: 2px 5px;
           text-align: center;
 
