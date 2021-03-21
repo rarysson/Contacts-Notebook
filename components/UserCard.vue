@@ -99,7 +99,7 @@ article {
   }
 
   button {
-    background-color: $light-blue;
+    background-color: $primary;
     border: none;
     border-radius: 5px;
     bottom: 15px;
@@ -111,7 +111,7 @@ article {
     transform: translateX(-50%);
 
     &:hover {
-      background-color: adjust-color($color: $light-blue, $lightness: -10%);
+      background-color: adjust-color($color: $primary, $lightness: -10%);
     }
 
     &:focus {

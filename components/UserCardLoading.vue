@@ -12,26 +12,7 @@
 
 <script>
 export default {
-  name: 'UserCard',
-
-  props: {
-    userData: {
-      type: Object,
-      required: true,
-    },
-  },
-
-  data() {
-    return {
-      openModal: false,
-    }
-  },
-
-  computed: {
-    categoriesCompany() {
-      return this.userData.company.bs.split(' ')
-    },
-  },
+  name: 'UserCardLoading',
 }
 </script>
 
@@ -45,29 +26,6 @@ article {
   padding: 60px 15px 15px;
   position: relative;
   width: 250px;
-
-  .avatar {
-    left: 50%;
-    height: 100px;
-    position: absolute;
-    top: -50px;
-    transform: translateX(-50%);
-    width: 100px;
-    background-color: lightgray;
-    border: 3px solid $default;
-    border-radius: 100%;
-
-    &::after {
-      border-radius: 100%;
-    }
-  }
-
-  .bar {
-    height: 25px;
-    position: relative;
-    width: 100%;
-    margin: 25px 0;
-  }
 
   .loading::after {
     animation: loading 1s infinite;
@@ -91,6 +49,29 @@ article {
     100% {
       background-position-x: 200%;
     }
+  }
+
+  .avatar {
+    left: 50%;
+    height: 100px;
+    position: absolute;
+    top: -50px;
+    transform: translateX(-50%);
+    width: 100px;
+    background-color: lightgray;
+    border: 3px solid $default;
+    border-radius: 100%;
+
+    &::after {
+      border-radius: 100%;
+    }
+  }
+
+  .bar {
+    height: 25px;
+    position: relative;
+    width: 100%;
+    margin: 25px 0;
   }
 }
 </style>

@@ -1,17 +1,13 @@
 <template>
   <form @submit.prevent="sendSearch">
-    <input
-      v-model.trim="searchTerm"
-      type="text"
-      placeholder="Procurar por..."
-    />
+    <input v-model.trim="searchTerm" type="text" placeholder="Filtrar por..." />
 
     <select v-model="searchOption">
       <optgroup label="Pessoa">
-        <option value="name">Nome</option>
+        <option value="person">Nome</option>
       </optgroup>
       <optgroup label="Empresa">
-        <option value="category">Categoria</option>
+        <option value="company">Categoria</option>
       </optgroup>
     </select>
 
@@ -31,7 +27,7 @@ export default {
   data() {
     return {
       searchTerm: '',
-      searchOption: 'name',
+      searchOption: 'person',
     }
   },
 
@@ -90,10 +86,10 @@ form {
     @include spacing-and-border(right);
     @include action-effects;
 
-    background-color: $light-blue;
+    background-color: $primary;
 
     &:hover {
-      background-color: adjust-color($color: $light-blue, $lightness: -10%);
+      background-color: adjust-color($color: $primary, $lightness: -10%);
     }
 
     i {
@@ -102,11 +98,11 @@ form {
   }
 
   &:focus-within {
-    border-color: $light-blue;
-    box-shadow: 0 0 2px $light-blue;
+    border-color: $primary;
+    box-shadow: 0 0 2px $primary;
 
     select {
-      border-color: $light-blue;
+      border-color: $primary;
     }
   }
 }
