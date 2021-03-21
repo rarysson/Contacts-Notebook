@@ -36,14 +36,14 @@
           </div>
         </div>
 
-        <div class="address-container">
+        <div class="extra-info-container address">
           <i
             class="fa fa-address-card-o fa-3x"
             title="Endereço residencial"
             aria-hidden="true"
           ></i>
 
-          <div class="address">
+          <div class="extra-info">
             <p class="address-info">
               <span class="address-label">Cidade:</span>
               {{ userData.address.city }}
@@ -63,14 +63,14 @@
           </div>
         </div>
 
-        <div class="company-info-container">
+        <div class="extra-info-container company">
           <i
             class="fa fa-building-o fa-3x"
             title="Informações da empresa"
             aria-hidden="true"
           ></i>
 
-          <section class="company-info">
+          <section class="extra-info">
             <h2>{{ userData.company.name }}</h2>
 
             <div class="categories-container">
@@ -121,31 +121,31 @@ export default {
 
 <style lang="scss" scoped>
 .overlay {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
   background-color: rgba(75, 75, 75, 0.75);
-  z-index: 1;
+  display: grid;
+  height: 100%;
+  left: 0;
+  place-items: center;
+  position: fixed;
   transition: all 0.3s;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .modal {
-  width: 720px;
-  height: 400px;
-  position: relative;
-  background: radial-gradient(circle, white 0%, $grey 100%);
+  background: $gradient;
   border-radius: 10px;
-  padding: 25px;
-  transition: all 0.3s;
   display: grid;
   grid-template:
     'header header' 125px
     'address company' 1fr / 1fr 1fr;
+  height: 400px;
+  padding: 25px;
+  position: relative;
   row-gap: 75px;
+  transition: all 0.3s;
+  width: 720px;
 }
 
 .modal-enter .modal,
@@ -154,23 +154,23 @@ export default {
 }
 
 button {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  color: $default;
   background-color: white;
   border: none;
   border-radius: 100%;
+  color: $default;
+  height: 40px;
+  position: absolute;
+  right: -15px;
   transition: transform 250ms;
+  top: -15px;
+  width: 40px;
 
   &:hover {
     transform: scale(1.1);
   }
 
   &:focus {
-    box-shadow: 0 0 3px $default;
+    box-shadow: $box-shadow;
   }
 }
 
@@ -183,8 +183,8 @@ button {
     border: 3px solid $default;
     border-radius: 100%;
     height: 125px;
-    width: 125px;
     margin-right: 25px;
+    width: 125px;
   }
 
   .info-user {
@@ -202,34 +202,16 @@ button {
     }
 
     .contact-container {
-      align-items: center;
-      display: flex;
       flex-basis: 50%;
+      margin: 0;
       padding: 5px 0;
-
-      i {
-        height: 20px;
-        margin-right: 10px;
-        width: 20px;
-      }
-
-      p {
-        font-size: rem(14);
-      }
     }
   }
 }
 
-.address-container {
-  display: flex;
-  grid-area: address;
-
-  i {
-    margin-right: 25px;
-  }
-
-  .address {
-    flex: 1;
+.extra-info-container {
+  &.address {
+    grid-area: address;
 
     .address-info {
       &:not(:last-of-type) {
@@ -241,43 +223,16 @@ button {
       }
     }
   }
-}
 
-.company-info-container {
-  display: flex;
-  grid-area: company;
-
-  i {
-    margin-right: 25px;
-  }
-
-  .company-info {
-    flex: 1;
+  &.company {
+    grid-area: company;
 
     h2 {
       font-size: rem(18);
     }
 
-    .categories-container {
-      display: flex;
-      flex-direction: column;
-      margin-top: 10px;
-
-      .category {
-        background-color: $default;
-        border: 1px solid $default;
-        border-radius: 5px;
-        color: $grey;
-        font-size: rem(12);
-        font-weight: bold;
-        padding: 2px 5px;
-        text-align: center;
-        max-width: 200px;
-
-        &:not(:last-of-type) {
-          margin-bottom: 5px;
-        }
-      }
+    .category {
+      max-width: 200px;
     }
   }
 }

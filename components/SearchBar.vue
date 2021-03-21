@@ -60,7 +60,7 @@ export default {
   transition: all 250ms;
 
   &:focus {
-    box-shadow: 0 0 3px $default;
+    box-shadow: $box-shadow;
   }
 }
 

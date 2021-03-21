@@ -10,3 +10,7 @@ $default: $dark-blue;
 $primary: $blue;
 $secondary: $green;
 $border-color: $grey;
+
+/* Variables */
+$gradient: radial-gradient(circle, white 0%, $grey 100%);
+$box-shadow: 0 0 3px $default;

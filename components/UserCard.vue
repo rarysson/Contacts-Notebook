@@ -14,10 +14,10 @@
       <p>{{ userData.phone }}</p>
     </div>
 
-    <div class="company-info-container">
+    <div class="extra-info-container">
       <i class="fa fa-building-o fa-3x" aria-hidden="true"></i>
 
-      <section class="company-info">
+      <section class="extra-info">
         <h2>{{ userData.company.name }}</h2>
 
         <div class="categories-container">
@@ -65,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 article {
-  background: radial-gradient(circle, white 0%, $grey 100%);
+  background: $gradient;
   border: 3px solid $default;
   border-radius: 10px;
   height: 375px;
@@ -81,26 +81,7 @@ article {
     text-align: center;
   }
 
-  .contact-container {
-    align-items: center;
-    display: flex;
-    margin: 15px 0;
-
-    i {
-      height: 20px;
-      margin-right: 10px;
-      width: 20px;
-    }
-
-    p {
-      font-size: rem(14);
-    }
-  }
-
   img {
-    background-color: white;
-    border: 3px solid $default;
-    border-radius: 100%;
     left: 50%;
     height: 100px;
     position: absolute;
@@ -109,41 +90,11 @@ article {
     width: 100px;
   }
 
-  .company-info-container {
-    display: flex;
+  .extra-info-container {
     margin-top: 25px;
 
-    i {
-      margin-right: 25px;
-    }
-
-    .company-info {
-      flex: 1;
-
-      h2 {
-        font-size: rem(14);
-      }
-
-      .categories-container {
-        display: flex;
-        flex-direction: column;
-        margin-top: 10px;
-
-        .category {
-          background-color: $default;
-          border: 1px solid $default;
-          border-radius: 5px;
-          color: $grey;
-          font-size: rem(12);
-          font-weight: bold;
-          padding: 2px 5px;
-          text-align: center;
-
-          &:not(:last-of-type) {
-            margin-bottom: 5px;
-          }
-        }
-      }
+    h2 {
+      font-size: rem(14);
     }
   }
 
@@ -164,7 +115,7 @@ article {
     }
 
     &:focus {
-      box-shadow: 0 0 3px $default;
+      box-shadow: $box-shadow;
     }
   }
 }
