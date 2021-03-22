@@ -3,7 +3,7 @@
     <div v-if="value" class="overlay" @click.self="closeModal">
       <div class="modal">
         <button @click="closeModal">
-          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+          <i class="fa fa-times fa-lg" aria-label="fechar modal"></i>
         </button>
 
         <div class="info-user-container">
@@ -13,25 +13,30 @@
             <p class="name">{{ userData.name }}</p>
 
             <div class="contacts-container">
-              <div class="contact-container">
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-                <p class="username">{{ userData.username }}</p>
-              </div>
-
-              <div class="contact-container">
-                <i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i>
-                <p>{{ userData.email }}</p>
-              </div>
-
-              <div class="contact-container">
-                <i class="fa fa-phone fa-lg" aria-hidden="true"></i>
-                <p>{{ userData.phone }}</p>
-              </div>
-
-              <div class="contact-container">
-                <i class="fa fa-globe-e" aria-hidden="true"></i>
-                <p>{{ userData.website }}</p>
-              </div>
+              <UserContactInfo
+                class="contact-info"
+                :info="userData.username"
+                icon="fa-user-o"
+                tooltip="Username"
+              />
+              <UserContactInfo
+                class="contact-info"
+                :info="userData.email"
+                icon="fa-envelope-o"
+                tooltip="Email"
+              />
+              <UserContactInfo
+                class="contact-info"
+                :info="userData.phone"
+                icon="fa-phone"
+                tooltip="Telefone"
+              />
+              <UserContactInfo
+                class="contact-info"
+                :info="userData.website"
+                icon="fa-globe"
+                tooltip="Website"
+              />
             </div>
           </div>
         </div>
@@ -40,7 +45,7 @@
           <i
             class="fa fa-address-card-o fa-3x"
             title="Endereço residencial"
-            aria-hidden="true"
+            aria-label="endereço residencial"
           ></i>
 
           <div class="extra-info">
@@ -63,27 +68,11 @@
           </div>
         </div>
 
-        <div class="extra-info-container company">
-          <i
-            class="fa fa-building-o fa-3x"
-            title="Informações da empresa"
-            aria-hidden="true"
-          ></i>
-
-          <section class="extra-info">
-            <h2>{{ userData.company.name }}</h2>
-
-            <div class="categories-container">
-              <p
-                v-for="(category, index) in categoriesCompany"
-                :key="`${category}-${index}`"
-                class="category"
-              >
-                {{ category }}
-              </p>
-            </div>
-          </section>
-        </div>
+        <UserCompanyInfo
+          class="company-info"
+          :company-name="userData.company.name"
+          :categories="userData.company.bs"
+        />
       </div>
     </div>
   </transition>
@@ -194,41 +183,39 @@ button {
     .contacts-container {
       display: flex;
       flex-wrap: wrap;
-    }
 
-    .contact-container {
-      flex-basis: 50%;
-      margin: 0;
-      padding: 5px 0;
+      .contact-info {
+        flex-basis: 50%;
+        margin: 0;
+        padding: 5px 0;
+      }
     }
   }
 }
 
-.extra-info-container {
-  &.address {
-    grid-area: address;
+.address {
+  grid-area: address;
 
-    .address-info {
-      &:not(:last-of-type) {
-        margin-bottom: 5px;
-      }
+  .address-info {
+    &:not(:last-of-type) {
+      margin-bottom: 5px;
+    }
 
-      .address-label {
-        font-weight: bold;
-      }
+    .address-label {
+      font-weight: bold;
     }
   }
+}
 
-  &.company {
-    grid-area: company;
+.company-info {
+  grid-area: company;
 
-    h2 {
-      font-size: rem(18);
-    }
+  h2 {
+    font-size: rem(18);
+  }
 
-    .category {
-      max-width: 200px;
-    }
+  .category {
+    max-width: 200px;
   }
 }
 </style>

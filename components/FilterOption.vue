@@ -4,8 +4,8 @@
       <span class="filter-label">{{ optionData.label }}</span>
       {{ optionData.value }}
     </p>
-    <button @click="removeFilter">
-      <i class="fa fa-times" aria-hidden="true"></i>
+    <button title="Remover filtro" @click="removeFilter">
+      <i class="fa fa-times" aria-label="remover filtro"></i>
     </button>
   </div>
 </template>
