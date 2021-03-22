@@ -59,7 +59,7 @@ form {
   border: $border;
   border-radius: 10px;
   display: flex;
-  transition: all 250ms ease-out;
+  transition: all $animation-time ease-out;
   width: fit-content;
 
   input {
@@ -72,7 +72,7 @@ form {
     border: none;
     border-left: $border;
     padding: 0 10px;
-    transition: all 250ms;
+    transition: all $animation-time;
 
     &:focus {
       box-shadow: $box-shadow;

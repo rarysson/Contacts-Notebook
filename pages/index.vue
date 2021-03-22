@@ -5,37 +5,43 @@
       <FilterBar class="search-bar" @filter="setFilterDataAndFilterUsers" />
     </header>
 
-    <section v-if="hasFilters" class="filters-container">
-      <h1>Filtrando por</h1>
+    <transition name="filters-container">
+      <section v-if="hasFilters" class="filters-container">
+        <h1>Filtrando por</h1>
 
-      <FilterOption
-        v-if="filters.person"
-        class="filter"
-        :option-data="{
-          label: 'Nome de pessoa:',
-          value: filters.person,
-          type: 'person',
-        }"
-        @remove-filter="setFilterDataAndFilterUsers"
-      />
-      <FilterOption
-        v-if="filters.company"
-        class="filter"
-        :option-data="{
-          label: 'Categoria da empresa:',
-          value: filters.company,
-          type: 'company',
-        }"
-        @remove-filter="setFilterDataAndFilterUsers"
-      />
-    </section>
+        <transition name="filter">
+          <FilterOption
+            v-if="filters.person"
+            class="filter"
+            :option-data="{
+              label: 'Nome de pessoa:',
+              value: filters.person,
+              type: 'person',
+            }"
+            @remove-filter="setFilterDataAndFilterUsers"
+          />
+        </transition>
+        <transition name="filter">
+          <FilterOption
+            v-if="filters.company"
+            class="filter"
+            :option-data="{
+              label: 'Categoria da empresa:',
+              value: filters.company,
+              type: 'company',
+            }"
+            @remove-filter="setFilterDataAndFilterUsers"
+          />
+        </transition>
+      </section>
+    </transition>
 
     <main>
-      <div class="users-container">
+      <transition-group class="users-container" name="cards" tag="div" appear>
         <template v-if="!isLoading && filteredUsers.length > 0">
           <UserCard
-            v-for="(user, index) in filteredUsers"
-            :key="`user-${index}`"
+            v-for="user in filteredUsers"
+            :key="`user-${user.name}`"
             :user-data="user"
           />
         </template>
@@ -45,7 +51,7 @@
         <p v-else class="no-result">
           Não existem usuários com os dados requisitados!
         </p>
-      </div>
+      </transition-group>
     </main>
   </div>
 </template>
@@ -169,5 +175,33 @@ main {
     grid-column: 1 / -1;
     margin: 50px 0;
   }
+}
+
+.filters-container,
+.filter,
+.cards {
+  &-enter-active,
+  &-leave-active {
+    transition: all $animation-time;
+  }
+}
+
+.filters-container,
+.cards {
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.filter-enter,
+.filter-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.cards-move {
+  transition: transform $animation-time ease-in-out;
 }
 </style>

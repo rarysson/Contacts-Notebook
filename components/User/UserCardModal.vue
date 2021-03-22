@@ -160,7 +160,6 @@ button {
   height: 40px;
   position: absolute;
   right: -15px;
-  transition: transform 250ms;
   top: -15px;
   width: 40px;
 

@@ -1,6 +1,6 @@
 button {
   border: none;
-  transition: all 250ms;
+  transition: all $animation-time;
 
   &.primary {
     background-color: $primary;
