@@ -66,6 +66,10 @@ form {
     @include spacing-and-border(left);
 
     border: none;
+
+    @media screen and (max-width: 400px) {
+      width: 125px;
+    }
   }
 
   select {

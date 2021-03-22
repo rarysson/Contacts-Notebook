@@ -112,7 +112,7 @@ export default {
 .overlay {
   background-color: rgba(75, 75, 75, 0.75);
   display: grid;
-  height: 100%;
+  min-height: 100vh;
   left: 0;
   place-items: center;
   position: fixed;
@@ -130,12 +130,28 @@ export default {
     'header header' 125px
     'address company' 1fr / 1fr 1fr;
   height: 400px;
-  margin: 0 10px;
+  margin: 10px;
   padding: 25px;
   position: relative;
   row-gap: 75px;
   transition: all 0.3s;
-  width: 720px;
+  max-width: 720px;
+
+  @media screen and (max-width: 600px) {
+    grid-template:
+      'header' 125px
+      'address' 1fr
+      'company' 1fr;
+    height: auto;
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-template:
+      'header' 1fr
+      'address' 125px
+      'company' 125px;
+    row-gap: 10px;
+  }
 }
 
 .modal-enter .modal,
@@ -145,11 +161,11 @@ export default {
 
 button {
   background-color: white;
-  border-radius: 100%;
+  border-top-right-radius: 10px;
   height: 40px;
   position: absolute;
-  right: -15px;
-  top: -15px;
+  right: 0;
+  top: 0;
   width: 40px;
 
   i {
@@ -157,7 +173,11 @@ button {
   }
 
   &:hover {
-    transform: scale(1.1);
+    background-color: $default;
+
+    i {
+      color: white;
+    }
   }
 }
 
@@ -188,7 +208,28 @@ button {
         flex-basis: 50%;
         margin: 0;
         padding: 5px 0;
+
+        @media screen and (max-width: 600px) {
+          flex-basis: 100%;
+        }
       }
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    img {
+      height: 100px;
+      margin: 0 auto 10px;
+      width: 100px;
+    }
+
+    .info-user .name {
+      font-size: rem(22);
+      margin-bottom: 10px;
+      text-align: center;
     }
   }
 }
@@ -210,12 +251,14 @@ button {
 .company-info {
   grid-area: company;
 
-  h2 {
-    font-size: rem(18);
-  }
+  &::v-deep {
+    h2 {
+      font-size: rem(18);
+    }
 
-  .category {
-    max-width: 200px;
+    .category {
+      max-width: 200px;
+    }
   }
 }
 </style>

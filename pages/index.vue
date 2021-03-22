@@ -48,7 +48,7 @@
         <template v-else-if="isLoading">
           <UserCardLoading v-for="index in 5" :key="`user-loading-${index}`" />
         </template>
-        <p v-else class="no-result">
+        <p v-else key="no-result" class="no-result">
           Não existem usuários com os dados requisitados!
         </p>
       </transition-group>
@@ -145,6 +145,18 @@ header {
     transform: translateY(-50%);
     top: 50%;
   }
+
+  @media screen and (max-width: 768px) {
+    justify-content: flex-end;
+  }
+
+  @media screen and (max-width: 550px) {
+    justify-content: center;
+
+    .logo {
+      display: none;
+    }
+  }
 }
 
 .filters-container {
@@ -155,8 +167,14 @@ header {
     margin-bottom: 10px;
   }
 
-  .filter:not(:last-of-type) {
-    margin-right: 15px;
+  .filter {
+    &:first-of-type {
+      margin-right: 15px;
+    }
+
+    &:last-of-type {
+      margin-top: 15px;
+    }
   }
 }
 
