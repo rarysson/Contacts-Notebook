@@ -141,6 +141,7 @@ export default {
     'header header' 125px
     'address company' 1fr / 1fr 1fr;
   height: 400px;
+  margin: 0 10px;
   padding: 25px;
   position: relative;
   row-gap: 75px;
@@ -155,9 +156,7 @@ export default {
 
 button {
   background-color: white;
-  border: none;
   border-radius: 100%;
-  color: $default;
   height: 40px;
   position: absolute;
   right: -15px;
@@ -165,12 +164,12 @@ button {
   top: -15px;
   width: 40px;
 
-  &:hover {
-    transform: scale(1.1);
+  i {
+    color: $default;
   }
 
-  &:focus {
-    box-shadow: $box-shadow;
+  &:hover {
+    transform: scale(1.1);
   }
 }
 
@@ -179,9 +178,6 @@ button {
   grid-area: header;
 
   img {
-    background-color: white;
-    border: 3px solid $default;
-    border-radius: 100%;
     height: 125px;
     margin-right: 25px;
     width: 125px;

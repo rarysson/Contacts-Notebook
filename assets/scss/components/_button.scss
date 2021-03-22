@@ -1,0 +1,17 @@
+button {
+  border: none;
+  transition: all 250ms;
+
+  &.primary {
+    background-color: $primary;
+    color: $grey;
+
+    &:hover {
+      background-color: adjust-color($color: $primary, $lightness: -10%);
+    }
+  }
+
+  &:focus {
+    box-shadow: $box-shadow;
+  }
+}

@@ -8,41 +8,43 @@
     <section v-if="hasFilters" class="filters-container">
       <h1>Filtrando por</h1>
 
-      <div v-if="filters.person" class="filter-container">
-        <p>
-          <span class="filter-label">Nome de pessoa:</span> {{ filters.person }}
-        </p>
-        <button
-          @click="setFilterDataAndFilterUsers({ type: 'person', value: '' })"
-        >
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div v-if="filters.company" class="filter-container">
-        <p>
-          <span class="filter-label">Categoria da empresa:</span>
-          {{ filters.company }}
-        </p>
-        <button
-          @click="setFilterDataAndFilterUsers({ type: 'company', value: '' })"
-        >
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      </div>
+      <FilterOption
+        v-if="filters.person"
+        class="filter"
+        :option-data="{
+          label: 'Nome de pessoa:',
+          value: filters.person,
+          type: 'person',
+        }"
+        @remove-filter="setFilterDataAndFilterUsers"
+      />
+      <FilterOption
+        v-if="filters.company"
+        class="filter"
+        :option-data="{
+          label: 'Categoria da empresa:',
+          value: filters.company,
+          type: 'company',
+        }"
+        @remove-filter="setFilterDataAndFilterUsers"
+      />
     </section>
 
     <main>
       <div class="users-container">
-        <template v-if="!isLoading">
+        <template v-if="!isLoading && filteredUsers.length > 0">
           <UserCard
             v-for="(user, index) in filteredUsers"
             :key="`user-${index}`"
             :user-data="user"
           />
         </template>
-        <template v-else>
+        <template v-else-if="isLoading">
           <UserCardLoading v-for="index in 5" :key="`user-loading-${index}`" />
         </template>
+        <p v-else class="no-result">
+          Não existem usuários com os dados requisitados!
+        </p>
       </div>
     </main>
   </div>
@@ -91,34 +93,32 @@ export default {
     },
 
     filterUsersByName() {
-      if (this.filters.person && !this.filters.company) {
-        this.filteredUsers = this.users.filter((user) =>
-          user.name.toLowerCase().includes(this.filters.person.toLowerCase())
-        )
-      } else if (this.filters.person && this.filters.company) {
-        this.filteredUsers = this.filteredUsers.filter((user) =>
-          user.name.toLowerCase().includes(this.filters.person.toLowerCase())
-        )
-      } else if (!this.filters.person && !this.filters.company) {
-        this.filteredUsers = this.users
-      } else if (!this.filters.person && this.filters.company) {
-        this.filterUsersByCompanyCategory()
+      const filterFunc = (user) =>
+        user.name.toLowerCase().includes(this.filters.person.toLowerCase())
+
+      if (this.filters.person) {
+        this.filteredUsers = this.filters.company
+          ? this.filteredUsers.filter(filterFunc) // Filtra os usuários da filtragem por categoria
+          : this.users.filter(filterFunc) // Filtra de todos usuários
+      } else if (this.filters.company) {
+        this.filterUsersByCompanyCategory() // Removeu a filtragem por usuário e restou a por categoria
+      } else {
+        this.filteredUsers = this.users // Sem filtro
       }
     },
 
     filterUsersByCompanyCategory() {
-      if (this.filters.company && !this.filters.person) {
-        this.filteredUsers = this.users.filter((user) =>
-          user.company.bs.includes(this.filters.company.toLowerCase())
-        )
-      } else if (this.filters.company && this.filters.person) {
-        this.filteredUsers = this.filteredUsers.filter((user) =>
-          user.company.bs.includes(this.filters.company.toLowerCase())
-        )
-      } else if (!this.filters.company && !this.filters.person) {
-        this.filteredUsers = this.users
-      } else if (!this.filters.company && this.filters.person) {
-        this.filterUsersByName()
+      const filterFunc = (user) =>
+        user.company.bs.includes(this.filters.company.toLowerCase())
+
+      if (this.filters.company) {
+        this.filteredUsers = this.filters.person
+          ? this.filteredUsers.filter(filterFunc) // Filtra as categorias da empresa da filtragem dos usuários
+          : this.users.filter(filterFunc) // Filtra de todos usuários
+      } else if (this.filters.person) {
+        this.filterUsersByName() // Removeu a filtragem por categoria e restou a por usuário
+      } else {
+        this.filteredUsers = this.users // Sem filtro
       }
     },
   },
@@ -149,40 +149,8 @@ header {
     margin-bottom: 10px;
   }
 
-  .filter-container {
-    border: 1px solid $primary;
-    display: inline-flex;
-    width: fit-content;
-    border-radius: 10px;
-
-    p {
-      padding: 5px 10px;
-
-      .filter-label {
-        font-weight: bold;
-      }
-    }
-
-    button {
-      border: none;
-      padding: 0 10px;
-      background-color: $primary;
-      color: $grey;
-      border-top-right-radius: 7px;
-      border-bottom-right-radius: 7px;
-
-      &:hover {
-        background-color: adjust-color($color: $primary, $lightness: -10%);
-      }
-
-      &:focus {
-        box-shadow: $box-shadow;
-      }
-    }
-
-    &:not(:last-of-type) {
-      margin-right: 15px;
-    }
+  .filter:not(:last-of-type) {
+    margin-right: 15px;
   }
 }
 
@@ -194,6 +162,12 @@ main {
     gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     justify-items: center;
+  }
+
+  .no-result {
+    font-size: rem(24);
+    grid-column: 1 / -1;
+    margin: 50px 0;
   }
 }
 </style>

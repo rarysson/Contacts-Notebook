@@ -32,7 +32,7 @@
       </section>
     </div>
 
-    <button @click="openModal = true">Ver mais</button>
+    <button class="primary" @click="openModal = true">Ver mais</button>
 
     <UserCardModal v-model="openModal" :user-data="userData" />
   </article>
@@ -99,24 +99,13 @@ article {
   }
 
   button {
-    background-color: $primary;
-    border: none;
     border-radius: 5px;
     bottom: 15px;
-    color: $grey;
     font-size: rem(14);
     left: 50%;
     padding: 5px 25px;
     position: absolute;
     transform: translateX(-50%);
-
-    &:hover {
-      background-color: adjust-color($color: $primary, $lightness: -10%);
-    }
-
-    &:focus {
-      box-shadow: $box-shadow;
-    }
   }
 }
 </style>

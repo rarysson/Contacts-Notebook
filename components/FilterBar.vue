@@ -11,7 +11,7 @@
       </optgroup>
     </select>
 
-    <button type="submit">
+    <button class="primary" type="submit">
       <i
         class="fa fa-search fa-lg fa-flip-horizontal"
         aria-label="pesquisar"
@@ -53,15 +53,6 @@ export default {
   padding: 10px 15px;
 }
 
-@mixin action-effects {
-  border: none;
-  transition: all 250ms;
-
-  &:focus {
-    box-shadow: $box-shadow;
-  }
-}
-
 $border: 2px solid $default;
 
 form {
@@ -78,21 +69,18 @@ form {
   }
 
   select {
-    @include action-effects;
-
+    border: none;
     border-left: $border;
     padding: 0 10px;
+    transition: all 250ms;
+
+    &:focus {
+      box-shadow: $box-shadow;
+    }
   }
 
   button {
     @include spacing-and-border(right);
-    @include action-effects;
-
-    background-color: $primary;
-
-    &:hover {
-      background-color: adjust-color($color: $primary, $lightness: -10%);
-    }
 
     i {
       color: $grey;
