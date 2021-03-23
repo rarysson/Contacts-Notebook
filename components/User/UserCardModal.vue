@@ -160,13 +160,14 @@ export default {
 }
 
 button {
-  background-color: white;
+  background-color: $grey;
   border-top-right-radius: 10px;
-  height: 40px;
+  border-bottom-left-radius: 10px;
+  height: 50px;
   position: absolute;
   right: 0;
   top: 0;
-  width: 40px;
+  width: 50px;
 
   i {
     color: $default;
@@ -176,7 +177,7 @@ button {
     background-color: $default;
 
     i {
-      color: white;
+      color: $grey;
     }
   }
 }
